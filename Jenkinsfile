@@ -2,7 +2,7 @@
 node {
       ws("workspace/${env.JOB_NAME}/${env.BRANCH_NAME}".replace('%2F', '_')) {
         stage 'Checkout'
-        checkout scm
+            git([branch: ${env.BRANCH_NAME}])
           
         stage 'Test'
         node {        
