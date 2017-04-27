@@ -6,9 +6,6 @@ pipeline {
                 buildDiscarder(logRotator(numToKeepStr:'1'))
                 skipDefaultCheckout()
         }
-
-        stages{
-
                 stage('Checkout'){
                         steps{
                                 checkout scm
@@ -26,5 +23,4 @@ pipeline {
                                 sh 'docker-compose down'
                         }
                 }
-        }
 }
