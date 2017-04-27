@@ -16,6 +16,7 @@ pipeline {
                 stage('Test'){
                         agent{
                                 image 'docker/compose:1.12.0'
+                                label 'test-ci'
                         }
                         steps{
                                 sh 'docker-compose up -d'
