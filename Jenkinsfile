@@ -16,7 +16,6 @@ pipeline {
                         agent{
                                 docker{
                                         image 'docker/compose:1.12.0'
-                                        label 'test-ci'
                                 }
                         }
                         steps{
