@@ -1,9 +1,22 @@
 #!groovy
-node {
-        stage 'Checkout'
-        checkout scm
+pipeline {
+        agent any
 
-        stage 'Test'
-        sh 'docker-compose up -d'
-        sh 'docker-compose run dockerapp python test.py'
+        options{
+                buildDiscarder(logRotator(numToKeepStr:'1'))
+                skipDefaultCheckout()
+        }
+
+        stage('Checkout'){
+                steps{
+                        checkout scm
+                }
+        }
+
+        stage ('Test'){
+                steps{
+                        sh 'docker-compose up -d'
+                        sh 'docker-compose run dockerapp python test.py'
+                }
+        }
 }
