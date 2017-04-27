@@ -1,7 +1,6 @@
 #!groovy
 pipeline {
         agent any
-
         options{
                 buildDiscarder(logRotator(numToKeepStr:'1'))
                 skipDefaultCheckout()
@@ -9,10 +8,11 @@ pipeline {
         stages{
                 stage('Checkout'){
                         steps{
-                                checkout scm
+                                script{
+                                        checkout scm
+                                }
                         }
                 }
-
                 stage('Test'){
                         agent{
                                 image 'docker/compose:1.12.0'
