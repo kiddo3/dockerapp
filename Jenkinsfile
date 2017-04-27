@@ -8,7 +8,7 @@ pipeline {
         }
 
         stage('Checkout'){
-                steps{
+                step ''{
                         checkout scm
                 }
         }
@@ -20,6 +20,7 @@ pipeline {
                 steps{
                         sh 'docker-compose up -d'
                         sh 'docker-compose run dockerapp python test.py'
+                        sh 'docker-compose down'
                 }
         }
 }
