@@ -35,6 +35,8 @@ pipeline {
                 stage('Deploy'){
                         steps{
                                 script{
+                                        def props = readJSON file: 'dev1.env.json'
+                                        echo "Usuario: ${props.user}"
                                         def doDeploy = input message: 'Need some input to continue', parameters: [choice(name: 'Deploy', choices: 'yes\nno', description: 'Deploy to dev1?')]
                                         echo "${doDeploy}"
                                         if(doDeploy == 'yes'){
