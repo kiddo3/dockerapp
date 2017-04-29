@@ -31,7 +31,8 @@ pipeline {
                 stage('Deploy'){
                         steps{
                                 script{
-                                        input message: 'Need some input', parameters: [booleanParam(defaultValue: false, description: 'Do the deploy?', name: 'doDeploy')]
+                                        def doDeploy = input message: 'Need some input to continue', parameters: [choice(name: 'RELEASE', choices: 'yes\no', description: 'Deploy to dev1?')]
+                                        echo "${doDeploy}"
                                         if(doDeploy){
                                                echo "DEPLOY!"
                                         }else{
