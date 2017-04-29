@@ -14,7 +14,7 @@ pipeline {
                                 }
                         }
                 }
-                stage('Test'){
+                /*stage('Test'){
                         agent{
                                 docker{
                                         image 'docker/compose:1.12.0'
@@ -26,7 +26,7 @@ pipeline {
                                 sh 'run dockerapp python test.py'
                                 sh 'down'
                         }
-                }
+                }*/
 
                 stage('Deploy'){
                         steps{
