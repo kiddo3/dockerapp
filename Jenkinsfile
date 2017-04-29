@@ -15,17 +15,31 @@ pipeline {
                         }
                 }
                 stage('Test'){
-                        /*agent{
+                        agent{
                                 docker{
                                         image 'docker/compose:1.12.0'
-                                        args  '-v /tmp:/tmp'
+                                        //args  '-v $(pwd):'
                                 }
-                        }*/
-                        agent docker
+                        }
                         steps{
-                                sh 'docker-compose up -d'
-                                sh 'docker-compose run dockerapp python test.py'
-                                sh 'docker-compose down'
+                                sh 'up -d'
+                                sh 'run dockerapp python test.py'
+                                sh 'down'
+                        }
+                }
+
+                stage('Deploy'){
+                        parameters{
+                                booleanParam(defaultValue: false, description: 'Do deploy to dev?', name: 'doDeploy')
+                        }
+                        steps{
+                                script{
+                                        if(params.doDeploy){
+                                               echo "DEPLOY!"
+                                        }else{
+                                                sh "NO DEPLOY"
+                                        }
+                                }
                         }
                 }
         }
