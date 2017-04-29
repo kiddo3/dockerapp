@@ -29,15 +29,13 @@ pipeline {
                 }
 
                 stage('Deploy'){
-                        parameters{
-                                booleanParam(defaultValue: false, description: 'Do deploy to dev?', name: 'doDeploy')
-                        }
                         steps{
                                 script{
-                                        if(params.doDeploy){
+                                        input message: 'Need some input', parameters: [booleanParam(defaultValue: false, description: 'Do the deploy?', name: 'doDeploy')]
+                                        if(doDeploy){
                                                echo "DEPLOY!"
                                         }else{
-                                                sh "NO DEPLOY"
+                                                echo "NO DEPLOY"
                                         }
                                 }
                         }
