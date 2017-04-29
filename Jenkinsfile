@@ -43,6 +43,7 @@ pipeline {
                                                echo "DEPLOY!"
                                         }else{
                                                 echo "NO DEPLOY"
+                                                currentBuild.result = 'ABORTED'
                                         }
                                 }
                         }
