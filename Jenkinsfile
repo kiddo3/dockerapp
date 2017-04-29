@@ -6,11 +6,15 @@ pipeline {
                 buildDiscarder(logRotator(numToKeepStr:'1'))
                 skipDefaultCheckout()
         }
+        environment{
+                CURRENT_BUILD = currentBuild.getNumber()
+        }
         stages{
                 stage('Checkout'){
                         steps{
                                 dir('code'){
                                         checkout scm
+                                        echo "Current build: ${CURRENT_BUILD}"
                                 }
                         }
                 }
@@ -31,7 +35,7 @@ pipeline {
                 stage('Deploy'){
                         steps{
                                 script{
-                                        def doDeploy = input message: 'Need some input to continue', parameters: [choice(name: 'RELEASE', choices: 'yes\nno', description: 'Deploy to dev1?')]
+                                        def doDeploy = input message: 'Need some input to continue', parameters: [choice(name: 'Deploy', choices: 'yes\nno', description: 'Deploy to dev1?')]
                                         echo "${doDeploy}"
                                         if(doDeploy == 'yes'){
                                                echo "DEPLOY!"
