@@ -1,4 +1,6 @@
 #!groovy
+@Library('argo-shared-library@master') _
+
 pipeline {
         agent any
 
@@ -35,6 +37,9 @@ pipeline {
                 stage('Deploy'){
                         steps{
                                 script{
+                                        def t = new argo.tool.Tool()
+                                        t.sayHello("Chelo")
+
                                         def props = readJSON file: 'code/dev1.env.json'
                                         echo "Usuario: ${props.user}"
                                         def doDeploy = input message: 'Need some input to continue', parameters: [choice(name: 'Deploy', choices: 'yes\nno', description: 'Deploy to dev1?')]
